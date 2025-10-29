@@ -22,8 +22,6 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
-                .formLogin().disable() // 🚫 禁用默认表单登录
-                .httpBasic().disable() // 🚫 禁用basic认证
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/user/register","/api/login").permitAll()
                         .anyRequest().authenticated())
