@@ -1,0 +1,54 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: abu-admin
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3307/abu-admin?characterEncoding=UTF-8&useUnicode=true&useSSL=false&tinyInt1isBit=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
+    username: root
+    password: Aa1987321195
+    # Druid 连接池配置（可选优化）
+    druid:
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 1
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        login-username: admin
+        login-password: admin
+      filter:
+        stat:
+          enabled: true
+        wall:
+          enabled: true
+        slf4j:
+          enabled: true
+mybatis-plus:
+  # 扫描 mapper XML 文件
+  mapper-locations: classpath*:mapper/**/*.xml
+  # 实体类所在包（自动识别别名）
+  type-aliases-package: com.example.demo.entity
+  configuration:
+    map-underscore-to-camel-case: true   # 下划线转驼峰
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  # 控制台打印 SQL 日志
+
+# Swagger 配置（Springfox 3）
+springfox:
+  documentation:
+    swagger-ui:
+      enabled: true

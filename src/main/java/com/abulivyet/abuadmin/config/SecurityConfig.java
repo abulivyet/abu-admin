@@ -1,4 +1,4 @@
-package com.abulivyet.abuadmin.common.utils;
+package com.abulivyet.abuadmin.config;
 
 import com.abulivyet.abuadmin.framework.jwt.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +22,10 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
+                .formLogin().disable() // 🚫 禁用默认表单登录
+                .httpBasic().disable() // 🚫 禁用basic认证
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/login").permitAll()
+                        .requestMatchers("/user/register","/api/login").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
